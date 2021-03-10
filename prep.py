@@ -16,7 +16,9 @@ if __name__ == "__main__":
 
 
     for release in releases:
-        command = f"git clone -b '{release['tag']}' --single-branch --depth 1 https://github.com/jquery/jquery.git {release['tag']}"
+        command = f"git clone -b '{release['tag']}' --single-branch --depth 1 https://github.com/jquery/jquery {release['tag']}"
 
         print(f"Executing {command}")
         os.system(command)
+
+    print(releases)
