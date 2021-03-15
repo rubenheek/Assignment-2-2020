@@ -12,9 +12,7 @@ COPY prep.py .
 
 COPY jquery.py .
 
-COPY test.py .
-
-COPY test2.py .
+COPY lines_of_code.py .
 
 COPY jquery_releases.csv .
 
