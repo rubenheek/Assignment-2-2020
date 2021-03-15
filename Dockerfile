@@ -1,6 +1,8 @@
 FROM python:3.6-slim
+#FROM python:3.6-alphine
 
 RUN apt-get update && apt-get install -y curl
+#RUN apk update && apk add curl bash
 
 RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - && apt-get install -y git nodejs cloc
 
@@ -8,9 +10,19 @@ WORKDIR /usr/jquery-data
 
 COPY prep.py .
 
+COPY jquery.py .
+
+COPY test.py .
+
+COPY test2.py .
+
 COPY jquery_releases.csv .
 
+COPY heatmap.py .
+
 RUN python prep.py
+
+RUN python jquery.py
 
 RUN rm -rf jquery_releases.csv
 
@@ -30,6 +42,7 @@ RUN npm install -g ./jsinspect
 ENV NODE_OPTIONS=--max-old-space-size=4000
 
 WORKDIR /usr/jquery-data
+
 
 # Open a bash prompt, such that you can execute commands 
 # such as `cloc`. 

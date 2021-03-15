@@ -4,7 +4,8 @@ import os
 import re
 
 releases = []
-direc = [] #['build']
+sizzle = ['1.11.0', '1.11.1', '1.11.2', '1.11.3', '2.1.0', '2.1.1', '2.1.2', '2.1.3', '2.1.4']
+direc = []#'build', 'speed', 'test', 'external']
 files = [] #['GPL-LICENSE.txt', 'MIT-LICENSE.txt', 'README.md']
 results = []
 
@@ -18,44 +19,28 @@ if __name__ == "__main__":
         command = f"{release['tag']}"
         print(f"Executing {command}")
         os.chdir(command)
-        command = f"ls"
-        print(f"Executing {command}")
-        os.system(command)
-        for fil in files:
-            command = f"rm -r {fil}"
+        for dire in direc:
+            command = f"rm -r {dire}"
             print(f"Executing {command}")
             os.system(command)
+
+        if release['tag'] in sizzle:
+            command = f"src"
+            print(f"Executing {command}")
+            os.chdir(command)
+            command = f"sizzle"
+            print(f"Executing {command}")
+            os.chdir(command)
+            command = f"rm -r test"
+            print(f"Executing {command}")
+            os.system(command)
+            command = f"../"
+            print(f"Executing {command}")
+            os.chdir(command)
+            command = f"../"
+            print(f"Executing {command}")
+            os.chdir(command)
 
         command = f"../"
         print(f"Executing {command}")
         os.chdir(command)
-
-    '''
-    for release1 in releases:
-        totalduplicatelines = 0
-        column = []
-        for release2 in releases:
-            if release1 == release2:
-                column.append(0)
-            else:
-                command = f"npx jsinspect -I -L -r pmd 1.0 1.2"
-                result = os.system(command)
-                print(command)
-                print(result)
-                command = f"cloc --ignore-whitespace {release1}"
-                result = os.system(command)
-
-           
-
-
-    command = f"npx jsinspect -I -L -r pmd 1.0 1.2"
-    result = os.system(command)
-    print("Printing results")
-    print(result)
-
-     foundduplicatelines = re.findall(r'duplicate lines:\s[+]?\d+', result, re.MULTILINE)
-            for x in foundduplicatelines:
-                filteredint = re.search("\d+", x)
-                totalduplicatelines += int(filteredint)
-    
-    '''
